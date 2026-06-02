@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyChat</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; display: flex; flex-direction: column; height: 100vh; }
+        header { background-color: #0084ff; color: white; padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        #chat-container { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .message { max-width: 75%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; }
+        .sent { background-color: #0084ff; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .received { background-color: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        input-area { display: flex; padding: 10px; background-color: white; border-top: 1px solid #ddd; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-size: 1rem; padding-left: 20px; }
+        button { background-color: #0084ff; color: white; border: none; padding: 0 20px; margin-left: 10px; border-radius: 25px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        button:active { background-color: #0066cc; }
+    </style>
+</head>
+<body>
+
+    <header>🚀 SkyChat</header>
+
+    <div id="chat-container">
+        <div class="message received">Salam Bhai! SkyChat par aapka swagat hai. 👋</div>
+        <div class="message sent">Walaikum Assalam! Yeh humari apni chat app hai. 😎</div>
+    </div>
+
+    <div style="display: flex; padding: 10px; background-color: white; border-top: 1px solid #ddd;">
+        <input type="text" id="msg-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('msg-input');
+            const container = document.getElementById('chat-container');
+            
+            if (input.value.trim() !== '') {
+                // Sent Message
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'message sent';
+                msgDiv.innerText = input.value;
+                container.appendChild(msgDiv);
+                
+                const text = input.value;
+                input.value = '';
+                container.scrollTop = container.scrollHeight;
+
+                // Auto Reply Fake Logic (Just for Demo)
+                setTimeout(() => {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'message received';
+                    replyDiv.innerText = "Sahi hai bhai! Mast kaam kar raha hai.";
+                    container.appendChild(replyDiv);
+                    container.scrollTop = container.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        // Enter key se send karne ke liye
+        document.getElementById('msg-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
